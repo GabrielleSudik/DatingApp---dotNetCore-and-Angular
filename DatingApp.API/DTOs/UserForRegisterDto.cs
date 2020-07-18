@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace DatingApp.API.DTOs
 {
     //this Data Transfer Object is to take the more compliated User model,
@@ -7,7 +9,12 @@ namespace DatingApp.API.DTOs
 
     public class UserForRegisterDto
     {
+
+        [Required]
         public string UserName { get; set; }
+
+        [Required]
+        [StringLength(12, MinimumLength=3, ErrorMessage = "Password must be 4-12 characters long.")]
         public string Password { get; set; }
     }
 }

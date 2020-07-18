@@ -1,8 +1,14 @@
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using DatingApp.API.Data;
 using DatingApp.API.DTOs;
 using DatingApp.API.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DatingApp.API.Controllers
 {
@@ -10,10 +16,15 @@ namespace DatingApp.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        //inject the IAuthRepo:
+        //inject the IAuthRepo,
+        //which are our methods for registering and login.
+        //inject IConfig, 
+        //which is a Microsoft library for configurations, for the token stuff.
         private readonly IAuthRepository _repo;
-        public AuthController(IAuthRepository repo)
+        private readonly IConfiguration _config;
+        public AuthController(IAuthRepository repo, IConfiguration config)
         {
+            _config = config;
             _repo = repo;
 
         }
@@ -22,12 +33,17 @@ namespace DatingApp.API.Controllers
         //When we first write it, it takes in userName and password.
         //But what we really need to pass in is a combined name/password object,
         //which we haven't created yet. We will in lesson 32.
-        
+
         [HttpPost("Register")]
         //public async Task<IActionResult> Register(string userName, string password) //lesson 31
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto) //lesson 32
         {
             //validate request:
+            //only needed if we don't use [ApiController]
+            // if(!ModelState.IsValid)
+            // {
+            //     return BadRequest(ModelState);
+            // }
 
             //convert userName to lowercase, to make sure John and john are treated as the same name.
             userForRegisterDto.UserName = userForRegisterDto.UserName.ToLower();
@@ -51,6 +67,61 @@ namespace DatingApp.API.Controllers
             //so in the meantime, we'll "cheat" and just send the code that means CreatedAtRoute.
             //return CreatedAtRoute()
             return StatusCode(201);
+        }
+
+        //lesson 35: user login with tokens.
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
+        {
+            var userFromRepo = await _repo.Login(userForLoginDto.UserName.ToLower(), userForLoginDto.Password);
+
+            if (userFromRepo == null)
+            {
+                return Unauthorized();
+                //when someone logs in wrong
+                //don't give them a hint about what's wrong (ie, not found or wrong password, etc)
+                //it's safer that way (and more annoying for the user ahem.)
+            }
+
+            //create a token to return to the user:
+            //we add info here so the server won't have to check the db each time
+            //it just has to look at the token.
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
+                new Claim(ClaimTypes.Name, userFromRepo.UserName)
+            };
+
+            //the next lines encrypt the key
+            //and prepare stuff to put into the token.
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
+            //the proj just knew what to type here.
+            //GetSection is a built in method from the IConfig stuff.
+            //"AppSettings:Token" value will be added to / found in appsettings.json
+
+            //for the next parts, again -- prof just knows what to type to create the variables.
+
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.Now.AddDays(1),
+                SigningCredentials = creds
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            //actual creation of the token itself.
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            //this is what gets returned to the client.
+
+            //this return statement will send OK
+            //plus the token, written so the client will understand it.
+            return Ok(new {
+                token = tokenHandler.WriteToken(token)
+            });
         }
     }
 }
