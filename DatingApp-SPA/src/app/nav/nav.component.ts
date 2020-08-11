@@ -28,6 +28,20 @@ export class NavComponent implements OnInit {
     });
   }
 
+  // lesson 44. Note the use of localStorage and what happens to the token in it.
+  loggedIn(){
+    const token = localStorage.getItem('token');
+    return !!token; 
+    // if something is in the token, return true.
+    // if not, return false.
+  }
+
+  // lesson 44
+  logout(){
+    localStorage.removeItem('token');
+    console.log('Successfully logged out.');
+  }
+
   // Coding tip: "subscribe" has 5 overloaded methods.
   // When you type subscribe(), you can cycle through the 5 suggestions.
   // We picked the one that does something or else does error handling.
