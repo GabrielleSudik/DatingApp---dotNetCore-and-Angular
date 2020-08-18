@@ -29,5 +29,14 @@ login(model: any) {
   );
 }
 
+// lesson 48
+// the model arg will be a UN and PW.
+register(model: any){
+  return this.http.post(this.baseUrl + 'register', model);
+  // tip: hover on "post" to see what it does.
+  // it returns an observable, so we need to actually observe that somewhere.
+  // head to register.component.ts
+}
+
 
 }

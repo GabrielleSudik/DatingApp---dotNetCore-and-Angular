@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { AuthService } from '../_services/auth.service';
 
 // created in lesson 45
 
@@ -9,21 +10,28 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  @Input() valuesFromHome: any; // this line allows values from Home component (the parent)
-                                // to be passed down (inputted) into Register (the child)
-
   @Output() cancelRegister = new EventEmitter(); // lesson 47 - to emit info
                                                  // from this child to its parent.
 
   model: any = {};
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
   }
 
   register(){
-    console.log(this.model); // for now, to confirm method fires.
+    // console.log(this.model); // for now, to confirm method fires.
+    // commented out in lesson 48, where we add the real code.
+
+    // lesson 48:
+    // the register() method in auth.service.ts returns an observable.
+    // so this is where we watch for it, via "subscribe"
+    this.authService.register(this.model).subscribe(() => {
+      console.log('Registration successful.');
+    }, error => {
+      console.log(error);
+    });
   }
 
   cancel(){

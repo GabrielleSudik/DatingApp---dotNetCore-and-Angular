@@ -11,12 +11,12 @@ import { HttpClient } from '@angular/common/http';
 export class HomeComponent implements OnInit {
 
   registerMode = false;
-  values: any;
+  // values: any;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.getValues(); // added in 46
+    // this.getValues(); // added in 46, removed in 48
   }
 
   registerToggle(){
@@ -30,20 +30,13 @@ export class HomeComponent implements OnInit {
   }
 
   // added in 46
+  // removed in 48 - we don't need it, it was just to learn @Input.
   // (moved from values component, which we'll delete because not needed)
   // also need some injection and import
-  getValues(){
-    this.http.get('http://localhost:5000/api/values').subscribe(response => {
-      this.values = response;
-    }, error => {
-      console.log(error);
-    });
-    // tip: hover on .get to see what that method does.
-    // notably, it returns an observable JSON object.
-    // to get that observable out, we need to subscribe to it.
-    // Hence, .subscribe. "response" is the thing we're getting back.
-    // and finally, we set the response to be "values" variable.
-  }
+  // getValues(){
+  //    //there was stuff here, you deleted it to save space.
+  //    //you can delete this whole block whenever.
+  // }
 
   // lesson 47
   // this will handle the data emitted by the child's @Output
