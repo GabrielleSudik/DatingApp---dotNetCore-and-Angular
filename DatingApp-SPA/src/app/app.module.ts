@@ -8,7 +8,6 @@ import { FormsModule } from '@angular/forms';
 // prof says sometimes just deleting and returning a char
 // from your new component will add imports, fix problems.
 import { AppComponent } from './app.component';
-import { ValueComponent } from './value/value.component';
 import { NavComponent } from './nav/nav.component';
 import { AuthService } from './_services/auth.service';
 import { HomeComponent } from './home/home.component';
@@ -17,7 +16,6 @@ import { RegisterComponent } from './register/register.component';
 @NgModule({
    declarations: [
       AppComponent,
-      ValueComponent,
       NavComponent,
       HomeComponent,
       RegisterComponent

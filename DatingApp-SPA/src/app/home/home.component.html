@@ -12,7 +12,11 @@
 <div *ngIf="registerMode" class="container">
   <div class="row justify-content-center">
     <div class="col-4">
-      <app-register></app-register>
+      <app-register [valuesFromHome]="values" (cancelRegister)="cancelRegisterMode($event)"></app-register>
+      <!--[] means @Input value. () means @Output value.-->
     </div>
   </div>
 </div>
+
+<!-- <p *ngFor="let value of values">{{value.name}}</p> -->
+<!-- deleted because it was just testing basic logic worked -->

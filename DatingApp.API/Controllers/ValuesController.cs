@@ -24,6 +24,7 @@ namespace DatingApp.API.Controllers
         //we'll revise the boilerplate methods to suit our needs.
 
         // GET api/values
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetValues() //IActionResults allows returning status codes, plus stuff.
         {
