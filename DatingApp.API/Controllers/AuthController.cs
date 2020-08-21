@@ -73,6 +73,14 @@ namespace DatingApp.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
+            //lesson 51:
+            //throw new Exception("This is a not-useful error message!"); 
+            //it's only at the top while you see it in action in Postman and the browser tools.
+
+            //usual approach to handling errors is the Try-Catch block:
+
+            try
+            {
             var userFromRepo = await _repo.Login(userForLoginDto.UserName.ToLower(), userForLoginDto.Password);
 
             if (userFromRepo == null)
@@ -122,6 +130,13 @@ namespace DatingApp.API.Controllers
             return Ok(new {
                 token = tokenHandler.WriteToken(token)
             });
+            }
+            catch
+            {
+                //new in lesson 51:
+                return StatusCode(500, "There is really an error somewhere.");
+            }
+            
         }
     }
 }
