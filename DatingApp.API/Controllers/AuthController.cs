@@ -74,7 +74,7 @@ namespace DatingApp.API.Controllers
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
             //lesson 51:
-            throw new Exception("This is a not-useful error message!"); 
+            //throw new Exception("This is a not-useful error message from the API!"); 
             //it's only at the top while you see it in action in Postman and the browser tools.
 
             //usual approach to handling errors is the Try-Catch block:
