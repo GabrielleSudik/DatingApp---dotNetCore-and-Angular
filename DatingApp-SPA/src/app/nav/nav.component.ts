@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service'; // lesson 56
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -11,7 +12,7 @@ export class NavComponent implements OnInit {
   model: any = {};
 
   // lesson 43: inject the auth service here.
-  constructor(public authService: AuthService, private alertify: AlertifyService) { }
+  constructor(public authService: AuthService, private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -29,6 +30,11 @@ export class NavComponent implements OnInit {
       // console.log('Login not successful (custom message).'); // old way, just some filler while we learned.
       // console.log(error); // lesson 53, new way, logging the error message passed from the API.
       this.alertify.error(error); // lesson 56
+    }, () => {
+      this.router.navigate(['/members']); // lesson 65: this part of "subscribe" method here
+        // uses the router, to naviage to the Members page when we log in.
+        // Prof says there are other places we could do this, like
+        // under the "next" part. But he wants to teach more so it's here.
     });
   }
 
@@ -50,6 +56,7 @@ export class NavComponent implements OnInit {
     localStorage.removeItem('token');
     // console.log('Successfully logged out.');
     this.alertify.message('Successfully logged out.');
+    this.router.navigate(['/home']); // lesson 65: navigates to Home upon logout.
   }
 
   // Coding tip: "subscribe" has 5 overloaded methods.
