@@ -18,5 +18,8 @@ namespace DatingApp.API.Data
         // Do it via the "migration" steps in the CMD.
         public DbSet<Value> Values {get; set; }
         public DbSet<User> Users { get; set; }
+
+        //lesson 70:
+        public DbSet<Photo> Photos { get; set; }
     }
 }
