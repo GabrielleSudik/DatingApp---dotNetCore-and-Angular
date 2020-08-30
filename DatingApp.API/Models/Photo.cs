@@ -19,7 +19,7 @@ namespace DatingApp.API.Models
         //between Photo and User.
         //This will ensure that, eg, if a User is deleted,
         //all of her photos will be deleted as well,
-        //because we have this explicit link between them.
+        //because we have this explicit link between them. 
         public User User { get; set; }
         public int UserId { get; set; }
     }
