@@ -25,6 +25,11 @@ namespace DatingApp.API.DTOs
         public string City { get; set; }
         public string Country { get; set; }
         public string PhotoUrl { get; set; } //whatever photo they choose as their main.
-        public ICollection<Photo> Photos { get; set; } //all their photos.
+
+        //public ICollection<Photo> Photos { get; set; } //all their photos.
+        public ICollection<PhotosForDetailsDto> Photos { get; set; } //79: changed from Photos
+            //to get only the mini list of Photo Properties in the DTO
+            //IE, leaving out certain User properties.
+
     }
 }
