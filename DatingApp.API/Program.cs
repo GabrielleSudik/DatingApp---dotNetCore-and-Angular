@@ -18,6 +18,7 @@ namespace DatingApp.API
         {
             //CreateHostBuilder(args).Build().Run(); //outed in lesson 74 seeding data.
             var host = CreateHostBuilder(args).Build(); //74: we'll build but won't run.
+            host.Run();
 
             //74: we need DataContext here, because it's needed in the Seed class.
             //so we'll inject it, then dispose when we are done.

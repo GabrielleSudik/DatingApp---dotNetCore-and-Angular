@@ -36,7 +36,11 @@ namespace DatingApp.API
         {
             //the order of services doesn't matter.
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(x => 
+                x.SerializerSettings.ReferenceLoopHandling = 
+                Newtonsoft.Json.ReferenceLoopHandling.Ignore); // added lesson 76
+                    //the loop handling part addresses an "error" that prevents data loading.
+                    //Really we just tell json how to read certain data.
 
             //add the DbContext:
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
@@ -49,6 +53,9 @@ namespace DatingApp.API
             //AddSingleton, AddTransient and AddScoped
             //they have to do with how many instances are created.
             services.AddScoped<IAuthRepository, AuthRepository>();
+
+            //lesson 75: DatingRepository (ie, the CRUD methods for Users):
+            services.AddScoped<IDatingRepository, DatingRepository>();
 
             //authentications:
             //prof just started typing, he was short on details about this.
