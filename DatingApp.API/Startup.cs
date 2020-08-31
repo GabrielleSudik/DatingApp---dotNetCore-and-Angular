@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using DatingApp.API.Data;
 using DatingApp.API.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -56,6 +57,9 @@ namespace DatingApp.API
 
             //lesson 75: DatingRepository (ie, the CRUD methods for Users):
             services.AddScoped<IDatingRepository, DatingRepository>();
+
+            //lesson 78:
+            services.AddAutoMapper(typeof(DatingRepository).Assembly);
 
             //authentications:
             //prof just started typing, he was short on details about this.

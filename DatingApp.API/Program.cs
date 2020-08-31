@@ -30,11 +30,11 @@ namespace DatingApp.API
                     var context = services.GetRequiredService<DataContext>();
                     context.Database.Migrate();
                     //74: Migration() checks whether there are any pending migrations.
+                    //You still have to do the dotnet ef migration step manually.
                     //If so, it either updates or creates the DB, as needed.
-                    //We don't have to manually do it.
                     //Works on dotnet run or dotnet watch run.
                     //You might have to drop the DB first? I'm a little unsure.
-                    Seed.SeedUsers(context);
+                    Seed.SeedUsers(context); 
                 }
                 catch (Exception ex)
                 {
