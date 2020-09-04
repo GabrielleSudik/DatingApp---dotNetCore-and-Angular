@@ -1,0 +1,17 @@
+<h3>This is member-list component.</h3>
+
+<div class="container mt-5">
+  <div class="row">
+      <p *ngFor="let user of users" class="col-lg-2 col-md-3 col-sm-6">
+        <!-- {{user.knownAs}} -->
+        <!-- Lesson 85: That works. You get the list of all users' knownAs properties. -->
+
+        <!--Lesson 86: use the member-card component instead.-->
+        <!--The tag ID's which basic component to use.-->
+        <!--The stuff [inside brackets] means the input property.-->
+        <!--And ="user" means the input property will be called "user" in the code.-->
+        <app-member-card [user]="user"></app-member-card>
+      </p>
+
+    </div>
+</div>

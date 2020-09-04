@@ -1,0 +1,44 @@
+// added in lesson 87
+
+// make images zoom and fade a bit when you hover
+.card:hover img {
+    transform: scale(1.2, 1.2);
+    transition-duration: 350ms;
+    transition-timing-function: ease-out;
+    opacity: 0.7;
+}
+
+// and return to normal on un-hover
+.card img {
+    transform: scale(1, 1);
+    transition-duration: 350ms;
+    transition-timing-function: ease-out;
+}
+
+// but don't let the biggened image flow outside the card's borders.
+.card-image-wrapper {
+    overflow: hidden;
+    position: relative;
+}
+
+// positioning for the icons on each card.
+.member-icons {
+    position: absolute;
+    bottom: -30%;
+    left: 0;
+    right: 0;
+    margin-right: auto;
+    margin-left: auto;
+    opacity: 0; // they are also "hidden" when not being hover'd
+}
+
+// icons will appear when hovered.
+.card-image-wrapper:hover .member-icons {
+    bottom: 0;
+    opacity: 1;
+}
+
+// make the trasition of buttoms from -30% to 0 be animated too:
+.animate {
+    transition: all 0.25s ease-in-out;
+}

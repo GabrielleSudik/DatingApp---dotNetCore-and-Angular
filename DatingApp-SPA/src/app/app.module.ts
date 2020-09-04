@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { RouterModule } from '@angular/router';
+import { JwtModule } from '@auth0/angular-jwt';
 
 // the following imports are stuff you created.
 // sometimes you had to add them manually, other times they automatically.
@@ -17,10 +18,17 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { AlertifyService } from './_services/alertify.service';
-import { MemberListComponent } from './member-list/member-list.component';
+import { MemberListComponent } from './members/member-list/member-list.component';
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
 import { appRoutes } from './routes';
+import { MemberCardComponent } from './members/member-card/member-card.component';
+
+
+// lesson 89: using JwtModule to send our JWTs around with requests.
+export function tokenGetter() {
+   return localStorage.getItem('token');
+}
 
 @NgModule({
    declarations: [
@@ -30,7 +38,8 @@ import { appRoutes } from './routes';
       RegisterComponent,
       MemberListComponent,
       ListsComponent,
-      MessagesComponent
+      MessagesComponent,
+      MemberCardComponent
    ],
    imports: [
       BrowserModule,
@@ -38,7 +47,16 @@ import { appRoutes } from './routes';
       FormsModule,
       BrowserAnimationsModule,
       BsDropdownModule.forRoot(), // prof just told use to add forRoot, dunno why.
-      RouterModule.forRoot(appRoutes) // appRoutes is the constant from Routes.ts.
+      RouterModule.forRoot(appRoutes), // appRoutes is the constant from Routes.ts.
+      JwtModule.forRoot({
+         config: {
+            tokenGetter: tokenGetter,
+            // whitelistedDomains: ['localhost:5000'], // out of date name
+            // blacklistedRoutes: ['localhost:5000/api/auth'] // out of date name
+            allowedDomains: ['localhost:5000'],
+            disallowedRoutes: ['localhost:5000/api/auth']
+         }
+      }) // lesson 89
    ],
    providers: [
       AuthService,
