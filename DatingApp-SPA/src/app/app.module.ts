@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 // the following imports are stuff you created.
 // sometimes you had to add them manually, other times they automatically.
@@ -23,6 +24,7 @@ import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
 import { appRoutes } from './routes';
 import { MemberCardComponent } from './members/member-card/member-card.component';
+import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 
 
 // lesson 89: using JwtModule to send our JWTs around with requests.
@@ -39,7 +41,8 @@ export function tokenGetter() {
       MemberListComponent,
       ListsComponent,
       MessagesComponent,
-      MemberCardComponent
+      MemberCardComponent,
+      MemberDetailComponent
    ],
    imports: [
       BrowserModule,
@@ -48,7 +51,7 @@ export function tokenGetter() {
       BrowserAnimationsModule,
       BsDropdownModule.forRoot(), // prof just told use to add forRoot, dunno why.
       RouterModule.forRoot(appRoutes), // appRoutes is the constant from Routes.ts.
-      JwtModule.forRoot({
+      JwtModule.forRoot({ // lesson 89
          config: {
             tokenGetter: tokenGetter,
             // whitelistedDomains: ['localhost:5000'], // out of date name
@@ -56,7 +59,8 @@ export function tokenGetter() {
             allowedDomains: ['localhost:5000'],
             disallowedRoutes: ['localhost:5000/api/auth']
          }
-      }) // lesson 89
+      }),
+      TabsModule.forRoot() // lesson 92 for some html on Details page.
    ],
    providers: [
       AuthService,

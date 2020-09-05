@@ -1,0 +1,73 @@
+<!-- <p>
+  This is member-detail component.
+</p> -->
+
+<!-- <p> -->
+  <!-- {{user?.knownAs}} -->
+  <!--The ? is the optional/"elvis operator" aka "safe navigation operator"
+  Using it avoids getting data but also having errors in the console,
+  when the console thinks the data didn't load. Something like that.-->
+<!-- </p> -->
+
+<!-- lesson 91-92: Designing the details page. -->
+
+<div class="container mt-4">
+  <div class="row">
+
+    <!--The smaller left side has the photo and quick details-->
+    <div class="col-sm-4">
+      <div class="card">
+      <img class="card-img-top img-thumbnail" src="{{user?.photoUrl}}" alt="{{user?.knownAs}}">
+      <div class="card-body">
+        <div>
+          <strong>Location:</strong>
+          <p>{{user?.city}}, {{user?.country}}</p>
+        </div>
+        <div>
+          <strong>Age:</strong>
+          <p>{{user?.age}}</p>
+        </div>
+        <div>
+          <strong>Last Active:</strong>
+          <p>{{user?.lastActive}}</p>
+        </div>
+        <div>
+          <strong>Member Since:</strong>
+          <p>{{user?.created}}</p>
+        </div>
+      </div>
+    </div>
+      <div class="card-footer">
+        <div class="btn-group d-flex">
+          <button class="btn btn-primary w-100">Like</button>
+          <button class="btn btn-success w-100">Message</button>
+        </div>
+      </div>
+    </div>
+
+    <!--The wider right side has tabs and bulky content-->
+    <!--You're using an ngx-bootstrap component: TabsModule (added to app.module)-->
+    <div class="col-sm-8">
+      <div class="tab-panel">
+        <tabset class="member-tabset">
+          <tab heading="About {{user?.knownAs}}">
+            <h4>Description</h4>
+            <p>{{user?.introduction}}</p>
+            <h4>Looking For</h4>
+            <p>{{user?.lookingFor}}</p>
+          </tab>
+          <tab heading="Interests">
+            <h4>Interests</h4>
+            <p>{{user?.interests}}</p>
+          </tab>
+          <tab heading="Photos">
+            <h4>Photos will go here later</h4>
+          </tab>
+          <tab heading="Messages">
+            <h4>Messages coming later</h4>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+</div>
