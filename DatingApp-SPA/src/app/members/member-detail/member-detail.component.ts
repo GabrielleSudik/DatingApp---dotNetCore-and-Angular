@@ -22,20 +22,27 @@ export class MemberDetailComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.loadUser() // call this method when this component is called.
+    // this.loadUser() // call this method when this component is called.
+    // later, lesson 93: instead of directly loadUser,
+    // use the resolver to load the data into the route:
+    this.route.data.subscribe(data => {
+      this.user = data['user'];
+    });
   }
 
   // when a user clicks on a Details button
   // the URL will end in members/5 (or whatever id)
   // we need this method to get and pass that id.
   // route is needed because that's where it will fetch the id from.
-  loadUser() {
-    this.userService.getUser(+this.route.snapshot.params.id)
-    .subscribe((user: User) => {
-    this.user = user;
-    }, error => {
-      this.alertify.error(error);
-    });
-    // note the + in GetUser param converts a string from the URL to an int for the method.
-  }
+  // later: commented out in lesson 93, to do what we added to onInit instead.
+
+  // loadUser() {
+  //   this.userService.getUser(+this.route.snapshot.params.id)
+  //   .subscribe((user: User) => {
+  //   this.user = user;
+  //   }, error => {
+  //     this.alertify.error(error);
+  //   });
+  //   // note the + in GetUser param converts a string from the URL to an int for the method.
+  // }
 }
