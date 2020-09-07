@@ -7,6 +7,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { NgxGalleryModule } from 'ngx-gallery-9';
 
 // the following imports are stuff you created.
 // sometimes you had to add them manually, other times they automatically.
@@ -62,7 +63,8 @@ export function tokenGetter() {
             disallowedRoutes: ['localhost:5000/api/auth']
          }
       }),
-      TabsModule.forRoot() // lesson 92 for some html on Details page.
+      TabsModule.forRoot(), // lesson 92 for some html on Details page.
+      NgxGalleryModule
    ],
    providers: [
       AuthService,
