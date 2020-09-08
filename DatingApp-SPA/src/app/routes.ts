@@ -10,6 +10,8 @@ import { AuthGuard } from './_guards/auth.guard';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 
 
 export const appRoutes: Routes = [
@@ -27,6 +29,8 @@ export const appRoutes: Routes = [
                 resolve: {user: MemberDetailResolver} }, // lesson 90, 93.
                 // ie, when the path ends in member/6, go to that user's MemberDetailComponent view.
                 // "resolve" is about loading data into the route so it's available before user opens the page.
+            { path: 'member/edit', component: MemberEditComponent,
+                resolve: { user: MemberEditResolver } }, // lesson 97
             { path: 'messages', component: MessagesComponent},
             { path: 'lists', component: ListsComponent},
         ]
