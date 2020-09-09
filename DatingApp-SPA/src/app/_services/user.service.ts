@@ -48,4 +48,9 @@ export class UserService {
     return this.http.get<User>(this.baseUrl + 'users/' + id);
     // see how we are building the URL for the user we need, and getting that user based on the URL?
   }
+
+  // lesson 102: lets user update their profile
+  updateUser(id: number, user: User) {
+    return this.http.put(this.baseUrl + 'users/' + id, user);
+  }
 }

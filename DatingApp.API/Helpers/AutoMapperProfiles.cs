@@ -41,6 +41,11 @@ namespace DatingApp.API.Helpers
                 .ForMember(dest => dest.Age, opt =>
                     opt.MapFrom(src => src.DateOfBirth.CalculateAge()));
             CreateMap<Photo, PhotosForDetailsDto>();
+
+            //lesson 101: saving user changes to their profile.
+            //mapping the 5 fields they can change to the new UserForUpdateDto.
+            //the order is <from here, to here>
+            CreateMap<UserForUpdateDto, User>();
         }
     }
 }
