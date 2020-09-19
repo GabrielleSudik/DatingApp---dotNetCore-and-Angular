@@ -74,6 +74,10 @@ namespace DatingApp.API
                         ValidateAudience = false
                     };
                 });
+
+            //lesson 106:
+            //this links the C# class CloudinarySettings to the values in appsettings.json
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

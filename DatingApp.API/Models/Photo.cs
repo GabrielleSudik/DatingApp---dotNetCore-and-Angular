@@ -22,5 +22,8 @@ namespace DatingApp.API.Models
         //because we have this explicit link between them. 
         public User User { get; set; }
         public int UserId { get; set; }
+
+        //lesson 106, for Cloudinary:
+        public string PublicId { get; set; }
     }
 }

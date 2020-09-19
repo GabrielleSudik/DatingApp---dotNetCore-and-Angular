@@ -46,6 +46,12 @@ namespace DatingApp.API.Helpers
             //mapping the 5 fields they can change to the new UserForUpdateDto.
             //the order is <from here, to here>
             CreateMap<UserForUpdateDto, User>();
+
+            //lesson 108: mapping data about photos 
+            //sent from and returned to client after an upload.
+            //order is <from here, to here>
+            CreateMap<PhotoForCreationDto, Photo>();
+            CreateMap<Photo, PhotoForReturnDto>();
         }
     }
 }

@@ -21,5 +21,8 @@ namespace DatingApp.API.Data
          Task<IEnumerable<User>> GetUsers();
 
          Task<User> GetUser(int id);
+
+        //lesson 108: needs a method to GetPhoto for Cloudinary stuff.
+         Task<Photo> GetPhoto(int id);
     }
 }
