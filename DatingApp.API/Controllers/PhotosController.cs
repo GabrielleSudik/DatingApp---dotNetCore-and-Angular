@@ -72,7 +72,7 @@ namespace DatingApp.API.Controllers
 
         [HttpPost]
         public async Task<IActionResult> AddPhotoForUser(int userId,
-                                                        PhotoForCreationDto photoForCreationDto)
+                                                        [FromForm]PhotoForCreationDto photoForCreationDto)
         {
             //check user is authorized:
             //compare token in route to user's token.
